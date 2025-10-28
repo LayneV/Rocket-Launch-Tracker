@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import LaunchList from "./components/LaunchList"
 
-
-export default function App() {
+function App() {
   return (
-    <div className="p-6 text-center">
-      <h1 className="text-3xl font-semibold text-gray-800">Rocket Launch Tracker</h1>
-    </div>
+    <LaunchList />
   )
 }
 
+export default App
