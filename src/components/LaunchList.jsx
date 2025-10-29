@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import LaunchCard from "./LaunchCard.jsx";
 
-
 function LaunchList() {
   const [launches, setLaunches] = useState([]);
 
@@ -19,7 +18,7 @@ function LaunchList() {
   return (
     <div className="">
       <h2>Upcoming Launches</h2>
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {launches.map((launch) => (
           <LaunchCard key={launch.id} launch={launch} />
         ))}
