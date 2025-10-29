@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import LaunchCard from "./LaunchCard.jsx";
-import { Card } from "flowbite-react";
 
 function LaunchList() {
   const [launches, setLaunches] = useState([]);
