@@ -9,6 +9,7 @@ function LaunchList() {
       );
       const data = await response.json();
       console.log(data);
+      setLaunches(data.results);
     };
     fetchLaunches();
   }, []);
@@ -16,8 +17,8 @@ function LaunchList() {
     <div>
       <h2>Upcoming Launches</h2>
       <ul>
-        {launches.map((launch, index) => (
-          <li key={index}>{launch}</li>
+        {launches.map((launch) => (
+          <li key={launch.id}>{launch.name}</li>
         ))}
       </ul>
     </div>
