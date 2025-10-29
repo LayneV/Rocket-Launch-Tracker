@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import LaunchCard from "./LaunchCard.jsx";
 
 function LaunchList() {
   const [launches, setLaunches] = useState([]);
+
   useEffect(() => {
     const fetchLaunches = async () => {
       const response = await fetch(
@@ -14,13 +16,13 @@ function LaunchList() {
     fetchLaunches();
   }, []);
   return (
-    <div>
+    <div className="">
       <h2>Upcoming Launches</h2>
-      <ul>
+      <div className="">
         {launches.map((launch) => (
-          <li key={launch.id}>{launch.name}</li>
+          <LaunchCard key={launch.id} launch={launch} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

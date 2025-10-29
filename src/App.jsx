@@ -1,9 +1,7 @@
-import LaunchList from "./components/LaunchList"
+import LaunchList from "./components/LaunchList";
 
 function App() {
-  return (
-    <LaunchList />
-  )
+  return <LaunchList />;
 }
 
-export default App
+export default App;
