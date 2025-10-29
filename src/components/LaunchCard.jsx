@@ -2,13 +2,17 @@ import { Card } from "flowbite-react";
 
 const LaunchCard = ({ launch }) => {
   return (
-    <Card className="max-w-lg">
-      <img src={launch.image.image_url} alt={launch.name} />
-      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+    <Card className="max-w-sm">
+      <img
+        src={launch.image.image_url}
+        alt={launch.name}
+        className="w-full h-48 object-cover rounded"
+      />
+      <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
         {launch.name}
       </h5>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-              Launch Date: { new Date(launch.net).toLocaleString()}
+        Launch Date: {new Date(launch.net).toLocaleString()}
       </p>
     </Card>
   );
