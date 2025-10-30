@@ -50,7 +50,7 @@ function HomePage() {
           className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4"
         >
           {upcoming.map((launch) => (
-            <div key={launch.id} className="md:shrink-0 md:w-96">
+            <div key={launch.id} className="md:shrink-0 md:w-96 pt-2">
               <LaunchCard launch={launch} />
             </div>
           ))}
@@ -68,7 +68,7 @@ function HomePage() {
 
         <div className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4">
           {previous.map((launch) => (
-            <div key={launch.id} className="md:shrink-0 md:w-96">
+            <div key={launch.id} className="md:shrink-0 md:w-96 pt-2">
               <LaunchCard launch={launch} />
             </div>
           ))}
