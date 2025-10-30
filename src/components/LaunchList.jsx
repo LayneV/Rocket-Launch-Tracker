@@ -16,13 +16,15 @@ function LaunchList() {
     fetchLaunches();
   }, []);
   return (
-    <div className="container mx-auto p-4">
-      <h2>Upcoming Launches</h2>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="container mx-auto p-4">
+        <h2>Upcoming Launches</h2>
 
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {launches.map((launch) => (
-          <LaunchCard key={launch.id} launch={launch} />
-        ))}
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 ">
+          {launches.map((launch) => (
+            <LaunchCard key={launch.id} launch={launch} />
+          ))}
+        </div>
       </div>
     </div>
   );
