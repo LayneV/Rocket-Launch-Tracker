@@ -18,8 +18,10 @@ function Header() {
       <NavbarToggle />
       <NavbarCollapse>
         <NavbarLink>Home</NavbarLink>
-        <NavbarLink>Upcoming Launches</NavbarLink>
-        <NavbarLink as={Link} to="/previous">Previous Launches</NavbarLink>
+        <NavbarLink as={Link} to="/upcoming">Upcoming Launches</NavbarLink>
+        <NavbarLink as={Link} to="/previous">
+          Previous Launches
+        </NavbarLink>
       </NavbarCollapse>
     </Navbar>
   );
