@@ -24,6 +24,10 @@ const LaunchCard = ({ launch }) => {
           <span className="font-bold">Location:</span>{" "}
           {launch.pad.location.name}
         </p>
+        <p className="font-normal text-gray-700 dark:text-gray-400">
+          <span className="font-bold">Company:</span>{" "}
+          {launch.launch_service_provider.name}
+        </p>
       </Card>
     </Link>
   );
