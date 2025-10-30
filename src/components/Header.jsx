@@ -17,8 +17,12 @@ function Header() {
       </NavbarBrand>
       <NavbarToggle />
       <NavbarCollapse>
-        <NavbarLink>Home</NavbarLink>
-        <NavbarLink as={Link} to="/upcoming">Upcoming Launches</NavbarLink>
+        <NavbarLink as={Link} to="/">
+          Home
+        </NavbarLink>
+        <NavbarLink as={Link} to="/upcoming">
+          Upcoming Launches
+        </NavbarLink>
         <NavbarLink as={Link} to="/previous">
           Previous Launches
         </NavbarLink>
