@@ -45,16 +45,13 @@ function HomePage() {
             <Button>View All</Button>
           </Link>
         </div>
-        <d
-          iv
-          className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4"
-        >
+        <div className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4">
           {upcoming.map((launch) => (
             <div key={launch.id} className="md:shrink-0 md:w-96 pt-2">
               <LaunchCard launch={launch} />
             </div>
           ))}
-        </d>
+        </div>
       </section>
       <section className="dark:bg-slate-800 p-5 rounded-lg border border-slate-700">
         <div className="flex justify-between items-center">
