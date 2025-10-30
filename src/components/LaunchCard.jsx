@@ -16,6 +16,9 @@ const LaunchCard = ({ launch }) => {
         <p className="font-normal text-gray-700 dark:text-gray-400">
           Launch Date: {new Date(launch.net).toLocaleString()}
         </p>
+        <p className="font-normal text-gray-700 dark:text-gray-400">
+          Location: {launch.pad.location.name}
+        </p>
       </Card>
     </Link>
   );
