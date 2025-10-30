@@ -32,7 +32,7 @@ function HomePage() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto p-4 flex flex-col gap-8">
+    <div className="container mx-auto p-4 flex flex-col gap-8 ">
       <h1 className="text-4xl font-bold text-center dark:text-white">
         Welcome to Rocket Launch Tracker!
       </h1>
@@ -45,13 +45,16 @@ function HomePage() {
             <Button>View All</Button>
           </Link>
         </div>
-        <div className="flex flex-row gap-4">
+        <d
+          iv
+          className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4"
+        >
           {upcoming.map((launch) => (
-            <div key={launch.id}>
+            <div key={launch.id} className="md:shrink-0 md:w-96">
               <LaunchCard launch={launch} />
             </div>
           ))}
-        </div>
+        </d>
       </section>
       <section className="dark:bg-slate-800 p-5 rounded-lg border border-slate-700">
         <div className="flex justify-between items-center">
@@ -63,9 +66,9 @@ function HomePage() {
           </Link>
         </div>
 
-        <div className="flex flex-row gap-4">
+        <div className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4">
           {previous.map((launch) => (
-            <div key={launch.id}>
+            <div key={launch.id} className="md:shrink-0 md:w-96">
               <LaunchCard launch={launch} />
             </div>
           ))}
