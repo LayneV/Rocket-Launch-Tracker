@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 const LaunchCard = ({ launch }) => {
   return (
     <Link to={`/launch/${launch.id}`}>
-      <Card className="max-w-lg transition-all duration-300 hover:-translate-y-5 hover:shadow-xl cursor-pointer">
+      <Card
+        className="shadow-lg max-w-lg transition-all duration-300 
+                   hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
+      >
         <img
           src={launch.image.image_url}
           alt={launch.name}
