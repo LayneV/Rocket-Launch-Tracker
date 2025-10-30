@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import LaunchCard from "./LaunchCard";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+import CountdownTimer from "./CountdownTimer";
 
 function HomePage() {
   const [upcoming, setUpcoming] = useState([]);
@@ -36,6 +37,16 @@ function HomePage() {
       <h1 className="text-4xl font-bold text-center dark:text-white">
         Welcome to Rocket Launch Tracker!
       </h1>
+      {upcoming.length > 0 && (
+        <div className="text-center mt-8 dark:bg-slate-800 p-5 rounded-lg border border-slate-700">
+          <p className="dark:text-white text-lg">
+            Next Launch In: {upcoming[0].name}
+          </p>
+          <div className="mt-2 flex justify-center dark:text-white">
+            <CountdownTimer targetDate={upcoming[0].net} />
+          </div>
+        </div>
+      )}
       <section className="dark:bg-slate-800 p-5 rounded-lg border border-slate-700">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold dark:text-white">

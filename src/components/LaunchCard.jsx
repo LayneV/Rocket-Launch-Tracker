@@ -17,15 +17,15 @@ const LaunchCard = ({ launch }) => {
           {launch.name}
         </h5>
         <p className="font-normal text-gray-700 dark:text-gray-400">
-          <span className="font-bold">Launch Date:</span>{" "}
+          <span className="font-bold">Launch Date: </span>
           {new Date(launch.net).toLocaleString()}
         </p>
         <p className="font-normal text-gray-700 dark:text-gray-400">
-          <span className="font-bold">Location:</span>{" "}
+          <span className="font-bold">Location: </span>
           {launch.pad.location.name}
         </p>
         <p className="font-normal text-gray-700 dark:text-gray-400">
-          <span className="font-bold">Company:</span>{" "}
+          <span className="font-bold">Company: </span>
           {launch.launch_service_provider.name}
         </p>
       </Card>
