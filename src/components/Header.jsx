@@ -1,8 +1,13 @@
+import { Navbar, NavbarBrand } from "flowbite-react";
 
 function Header() {
   return (
-    <h2>Header</h2>
-  )
+    <Navbar>
+      <NavbarBrand>
+        <span>Rocket Launch Tracker 🚀</span>
+      </NavbarBrand>
+    </Navbar>
+  );
 }
 
-export default Header
+export default Header;
