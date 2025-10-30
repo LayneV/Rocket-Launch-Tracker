@@ -19,7 +19,7 @@ function Header() {
       <NavbarCollapse>
         <NavbarLink>Home</NavbarLink>
         <NavbarLink>Upcoming Launches</NavbarLink>
-        <NavbarLink>Previous Launches</NavbarLink>
+        <NavbarLink as={Link} to="/previous">Previous Launches</NavbarLink>
       </NavbarCollapse>
     </Navbar>
   );
