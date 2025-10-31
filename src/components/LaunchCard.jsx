@@ -1,5 +1,6 @@
 import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";
+import rocketIcon from "../assets/rocket-ship-svgrepo-com.svg";
 
 const LaunchCard = ({ launch }) => {
   return (
@@ -9,9 +10,10 @@ const LaunchCard = ({ launch }) => {
                    hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
       >
         <img
-          src={launch.image.image_url}
-          alt={launch.name}
-          className="w-full h-48 object-cover rounded"
+          src={launch.image.image_url || rocketIcon}
+          onError={(e) => (e.currentTarget.src = rocketIcon)}
+          alt="Rocket"
+          className="w-full h-64 object-cover rounded-xl"
         />
         <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           {launch.name}

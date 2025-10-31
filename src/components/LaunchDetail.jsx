@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Badge } from "flowbite-react";
 import { ArrowLeftIcon } from "flowbite-react";
 import LoadingSpinner from "./LoadingSpinner";
+import rocketIcon from "../assets/rocket-ship-svgrepo-com.svg";
 
 const LaunchDetail = () => {
   const { id } = useParams();
@@ -49,8 +50,8 @@ const LaunchDetail = () => {
         <div>
           <img
             className="w-full h-auto rounded-lg shadow-xl"
-            src={launch.image.image_url}
-            alt={`Mission patch for ${launch.name}`}
+            src={launch.image.image_url || rocketIcon}
+            alt={`Rocket`}
           />
         </div>
 
@@ -63,7 +64,7 @@ const LaunchDetail = () => {
           </div>
 
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
-            {launch.name || "Unknown"}
+            {launch?.name || "Unknown"}
           </h1>
 
           <div className="text-lg text-gray-400 flex flex-col gap-2">
@@ -78,7 +79,7 @@ const LaunchDetail = () => {
             {launch.mission?.agencies?.length > 0 && (
               <p>
                 <span className="font-bold text-gray-200">Company: </span>
-                {launch.mission.agencies[0].name || "Unknown"}
+                {launch.mission?.agencies[0].name || "Unknown"}
               </p>
             )}
           </div>
