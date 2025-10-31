@@ -7,6 +7,7 @@ const CountdownTimer = ({ targetDate }) => {
     minutes: 0,
     seconds: 0,
   });
+  const formatTime = (value) => String(value).padStart(2, "0");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -28,23 +29,40 @@ const CountdownTimer = ({ targetDate }) => {
 
     return () => clearInterval(intervalId);
   }, [targetDate]);
+  
+    if (
+    timeLeft.days === 0 &&
+    timeLeft.hours === 0 &&
+    timeLeft.minutes === 0 &&
+    timeLeft.seconds === 0
+  ) {
+    return (
+      <p className="text-xl font-semibold text-green-500">
+        Launch window open!
+      </p>
+    );
+  }
 
   return (
     <div className="flex gap-4 text-center">
       <div>
-        <span className="font-bold text-4xl">{timeLeft.days}</span>
+        <span className="font-bold text-4xl">{formatTime(timeLeft.days)}</span>
         <span className="block text-sm">Days</span>
       </div>
       <div>
-        <span className="font-bold text-4xl">{timeLeft.hours}</span>
+        <span className="font-bold text-4xl">{formatTime(timeLeft.hours)}</span>
         <span className="block text-sm">Hours</span>
       </div>
       <div>
-        <span className="font-bold text-4xl">{timeLeft.minutes}</span>
+        <span className="font-bold text-4xl">
+          {formatTime(timeLeft.minutes)}
+        </span>
         <span className="block text-sm">Minutes</span>
       </div>
       <div>
-        <span className="font-bold text-4xl">{timeLeft.seconds}</span>
+        <span className="font-bold text-4xl">
+          {formatTime(timeLeft.seconds)}
+        </span>
         <span className="block text-sm">Seconds</span>
       </div>
     </div>
