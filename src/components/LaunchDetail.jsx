@@ -36,7 +36,6 @@ const LaunchDetail = () => {
 
   if (loading) return <LoadingSpinner />;
 
-
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">
       <div className="mb-3">
