@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState} from "react";
-import { Button, Badge, Card } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { Button, Badge } from "flowbite-react";
+import { ArrowLeftIcon } from "flowbite-react";
 
 const LaunchDetail = () => {
   const { id } = useParams();
@@ -33,52 +34,105 @@ const LaunchDetail = () => {
   if (!launch) return <p>Loading...</p>;
 
   return (
-    <div className="min-h-screen flex item-center justify-center bg-gray-100 dark:bg-gray-900">
-      <Button as={Link} to="/">
-        Go Back
-      </Button>
-      <Card>
-        <div className="grid gap-1 grid-cols-2 grid-rows-1">
-          <div>
-            <img
-              className="max-w-md rounded-t-lg"
-              src={launch.image.image_url}
-            />
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">
+      <div className="mb-3">
+        <Button className="max-w-xs" as={Link} to="/" size="md">
+          <ArrowLeftIcon />
+          Back to Launches
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div>
+          <img
+            className="w-full h-auto rounded-lg shadow-xl"
+            src={launch.image.image_url}
+            alt={`Mission patch for ${launch.name}`}
+          />
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">Status:</span>
+            <Badge size="sm" color={getStatusColor(launch.status.name)}>
+              {launch.status.name || "Unknown"}
+            </Badge>
           </div>
-          <div>
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {launch.name}
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              <span className="font-bold">Launch Date: </span>
-              {new Date(launch.net).toLocaleString()}
+
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+            {launch.name || "Unknown"}
+          </h1>
+
+          <div className="text-lg text-gray-400 flex flex-col gap-2">
+            <p>
+              <span className="font-bold text-gray-200">Launch Date: </span>
+              {new Date(launch.net).toLocaleString() || "Unknown"}
             </p>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              <span className="font-bold">Location: </span>
-              {launch.pad.location.name}
+            <p>
+              <span className="font-bold text-gray-200">Location: </span>
+              {launch.pad.location.name || "Unknown"}
             </p>
-            {launch.mission.agencies.length > 0 && (
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                <span className="font-bold">Company: </span>
-                {launch.mission.agencies[0].name}
+            {launch.mission?.agencies?.length > 0 && (
+              <p>
+                <span className="font-bold text-gray-200">Company: </span>
+                {launch.mission.agencies[0].name || "Unknown"}
               </p>
             )}
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              <span className="font-bold">Mission Description: </span>
-              {launch.mission.description}
+          </div>
+
+          <p className="mt-2 text-gray-300 leading-relaxed">
+            {launch.mission?.description ||
+              "No detailed mission description available."}
+          </p>
+
+          <div className="mt-6 border-t border-gray-700 pt-6">
+            <h3 className="text-3xl font-bold mb-4">Vehicle Details</h3>
+
+            <p className="mb-6 text-gray-300">
+              {launch.rocket?.configuration?.description ||
+                "No vehicle description available."}
             </p>
-            <div className="flex items-center gap-2">
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                Status:
+
+            <div className="grid grid-cols-2 gap-y-2 text-lg text-gray-400">
+              <p>
+                <span className="font-bold text-gray-200">Full Name:</span>
               </p>
-              <Badge color={getStatusColor(launch.status.name)}>
-                {launch.status.name}
-              </Badge>
+              <p>{launch.rocket?.configuration?.full_name || "Unknown"}</p>
+
+              <p>
+                <span className="font-bold text-gray-200">Family:</span>
+              </p>
+              <p>{launch.rocket?.configuration?.family || "Unknown"}</p>
+
+              <p>
+                <span className="font-bold">
+                  <span className="text-green-500">Success</span>/
+                  <span className="text-red-500">Fail:</span>
+                </span>
+              </p>
+              <p>
+                <span className="text-green-500">
+                  {launch.rocket?.configuration?.successful_launches ||
+                    "Unknown"}
+                </span>{" "}
+                /{" "}
+                <span className="text-red-500">
+                  {launch.rocket?.configuration?.failed_launches || "Unknown"}
+                </span>
+              </p>
+
+              <p>
+                <span className="font-bold text-gray-200">Launch Cost:</span>
+              </p>
+              <p>
+                {launch.rocket?.configuration?.launch_cost
+                  ? `$${parseInt(launch.rocket.configuration.launch_cost).toLocaleString()}`
+                  : "N/A"}
+              </p>
             </div>
-            <div></div>
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
