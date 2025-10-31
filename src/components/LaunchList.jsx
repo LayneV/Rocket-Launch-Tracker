@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import LaunchCard from "./LaunchCard.jsx";
+import LoadingSpinner from "./LoadingSpinner.jsx";
 
 function LaunchList({ listType }) {
   const [launches, setLaunches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLaunches = async () => {
@@ -12,9 +14,13 @@ function LaunchList({ listType }) {
       const data = await response.json();
       console.log(data);
       setLaunches(data.results);
+      setLoading(false);
     };
     fetchLaunches();
   }, [listType]);
+
+  if (loading) return <LoadingSpinner />;
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="container mx-auto p-4">

@@ -2,10 +2,12 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Badge } from "flowbite-react";
 import { ArrowLeftIcon } from "flowbite-react";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LaunchDetail = () => {
   const { id } = useParams();
   const [launch, setLaunch] = useState(null);
+  const [loading, setLoading] = useState(true);
   const getStatusColor = (statusName) => {
     const status = statusName.toLowerCase();
     if (status.includes("success") || status.includes("go")) {
@@ -27,11 +29,13 @@ const LaunchDetail = () => {
       const data = await response.json();
       setLaunch(data);
       console.log(data);
+      setLoading(false);
     };
     fetchSpecificLaunch();
   }, [id]);
 
-  if (!launch) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
+
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">

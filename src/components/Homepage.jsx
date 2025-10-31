@@ -3,6 +3,7 @@ import LaunchCard from "./LaunchCard";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import CountdownTimer from "./CountdownTimer";
+import LoadingSpinner from "./LoadingSpinner";
 
 function HomePage() {
   const [upcoming, setUpcoming] = useState([]);
@@ -30,7 +31,7 @@ function HomePage() {
     fetchHomepageData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-8 ">

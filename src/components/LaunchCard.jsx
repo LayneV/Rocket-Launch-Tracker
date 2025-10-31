@@ -9,7 +9,7 @@ const LaunchCard = ({ launch }) => {
                    hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
       >
         <img
-                  src={launch.image.image_url}
+          src={launch.image.image_url}
           alt={launch.name}
           className="w-full h-48 object-cover rounded"
         />
