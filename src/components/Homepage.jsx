@@ -33,10 +33,10 @@ function HomePage() {
       try {
         const [upcomingResponse, previousResponse] = await Promise.all([
           fetch(
-            "https://lldev.thespacedevs.com/2.3.0/launches/upcoming/?limit=3"
+            "https://ll.thespacedevs.com/2.3.0/launches/upcoming/?limit=3"
           ),
           fetch(
-            "https://lldev.thespacedevs.com/2.3.0/launches/previous/?limit=3"
+            "https://ll.thespacedevs.com/2.3.0/launches/previous/?limit=3"
           ),
         ]);
 
@@ -87,7 +87,7 @@ function HomePage() {
         </div>
       )}
 
-      <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700 max-w-7xl mx-auto">
+      <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-semibold dark:text-white">
             Upcoming Launches
@@ -96,17 +96,16 @@ function HomePage() {
             <Button>View All</Button>
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {upcoming.map((launch) => (
-            <div key={launch.id} className="flex">
-              <LaunchCard launch={launch} className="flex-1 h-full" />
+            <div key={launch.id} className="pt-2">
+              <LaunchCard launch={launch} />
             </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700 max-w-7xl mx-auto">
+      <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-semibold dark:text-white">
             Previous Launches
@@ -115,11 +114,10 @@ function HomePage() {
             <Button>View All</Button>
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {previous.map((launch) => (
-            <div key={launch.id} className="flex">
-              <LaunchCard launch={launch} className="flex-1 h-full" />
+            <div key={launch.id} className="pt-2">
+              <LaunchCard launch={launch} />
             </div>
           ))}
         </div>

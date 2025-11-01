@@ -27,7 +27,7 @@ function LaunchList({ listType }) {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://lldev.thespacedevs.com/2.3.0/launches/${listType}/`
+          `https://ll.thespacedevs.com/2.3.0/launches/${listType}/`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
