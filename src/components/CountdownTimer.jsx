@@ -29,15 +29,15 @@ const CountdownTimer = ({ targetDate }) => {
 
     return () => clearInterval(intervalId);
   }, [targetDate]);
-  
-    if (
+
+  if (
     timeLeft.days === 0 &&
     timeLeft.hours === 0 &&
     timeLeft.minutes === 0 &&
     timeLeft.seconds === 0
   ) {
     return (
-      <p className="text-xl font-semibold text-green-500">
+      <p className="text-3xl font-bold text-green-400 [text-shadow:_0_0_10px_rgb(34_197_94)] animate-pulse">
         Launch window open!
       </p>
     );
