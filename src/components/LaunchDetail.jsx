@@ -24,14 +24,24 @@ const LaunchDetail = () => {
   };
   useEffect(() => {
     const fetchSpecificLaunch = async () => {
-      const response = await fetch(
-        `https://lldev.thespacedevs.com/2.3.0/launches/${id}/`
-      );
-      const data = await response.json();
-      setLaunch(data);
-      console.log(data);
-      setLoading(false);
+      try {
+        const response = await fetch(
+          `https://lldev.thespacedevs.com/2.3.0/launches/${id}/`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch launch: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setLaunch(data);
+      } catch (error) {
+        console.error("Error fetching launch:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchSpecificLaunch();
   }, [id]);
 
@@ -63,28 +73,34 @@ const LaunchDetail = () => {
             </Badge>
           </div>
 
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight ">
             {launch?.name || "Unknown"}
           </h1>
 
           <div className="text-lg text-gray-400 flex flex-col gap-2">
             <p>
-              <span className="font-bold text-gray-200">Launch Date: </span>
+              <span className="font-bold text-gray-600 dark:text-gray-400">
+                Launch Date:{" "}
+              </span>
               {new Date(launch.net).toLocaleString() || "Unknown"}
             </p>
             <p>
-              <span className="font-bold text-gray-200">Location: </span>
+              <span className="font-bold text-gray-600 dark:text-gray-400">
+                Location:{" "}
+              </span>
               {launch.pad.location.name || "Unknown"}
             </p>
             {launch.mission?.agencies?.length > 0 && (
               <p>
-                <span className="font-bold text-gray-200">Company: </span>
+                <span className="font-bold text-gray-600 dark:text-gray-400">
+                  Company:{" "}
+                </span>
                 {launch.mission?.agencies[0].name || "Unknown"}
               </p>
             )}
           </div>
 
-          <p className="mt-2 text-gray-300 leading-relaxed">
+          <p className="mt-2 text-gray-600 dark:text-gray-400 leading-relaxed">
             {launch.mission?.description ||
               "No detailed mission description available."}
           </p>
@@ -92,19 +108,23 @@ const LaunchDetail = () => {
           <div className="mt-6 border-t border-gray-700 pt-6">
             <h3 className="text-3xl font-bold mb-4">Vehicle Details</h3>
 
-            <p className="mb-6 text-gray-300">
+            <p className="mb-6 text-gray-600 dark:text-gray-400">
               {launch.rocket?.configuration?.description ||
                 "No vehicle description available."}
             </p>
 
             <div className="grid grid-cols-2 gap-y-2 text-lg text-gray-400">
               <p>
-                <span className="font-bold text-gray-200">Full Name:</span>
+                <span className="font-bold text-gray-600 dark:text-gray-400">
+                  Full Name:
+                </span>
               </p>
               <p>{launch.rocket?.configuration?.full_name || "Unknown"}</p>
 
               <p>
-                <span className="font-bold text-gray-200">Family:</span>
+                <span className="font-bold text-gray-600 dark:text-gray-400">
+                  Family:
+                </span>
               </p>
               <p>{launch.rocket?.configuration?.family || "Unknown"}</p>
 
@@ -126,7 +146,9 @@ const LaunchDetail = () => {
               </p>
 
               <p>
-                <span className="font-bold text-gray-200">Launch Cost:</span>
+                <span className="font-bold text-gray-600 dark:text-gray-400">
+                  Launch Cost:
+                </span>
               </p>
               <p>
                 {launch.rocket?.configuration?.launch_cost

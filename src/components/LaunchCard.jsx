@@ -6,7 +6,7 @@ const LaunchCard = ({ launch }) => {
   return (
     <Link to={`/launch/${launch.id}`}>
       <Card
-        className="shadow-lg max-w-lg transition-all duration-300 
+        className="shadow-lg h-full max-w-lg transition-all duration-300 
                    hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
       >
         <img

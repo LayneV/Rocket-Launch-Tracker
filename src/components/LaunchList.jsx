@@ -34,7 +34,7 @@ function LaunchList({ listType }) {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold dark:text-white mb-6 capitalize">
+      <h2 className="text-3xl font-bold dark:text-white mb-6 capitalize text-center">
         {listType} Launches
       </h2>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

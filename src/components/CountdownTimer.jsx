@@ -14,8 +14,9 @@ const CountdownTimer = ({ targetDate }) => {
       const totalSeconds =
         (new Date(targetDate).getTime() - new Date().getTime()) / 1000;
 
-      if (totalSeconds < 0) {
+      if (totalSeconds <= 0) {
         clearInterval(intervalId);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
 

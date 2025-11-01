@@ -12,34 +12,45 @@ function HomePage() {
 
   useEffect(() => {
     const fetchHomepageData = async () => {
-      const [upcomingResponse, previousResponse] = await Promise.all([
-        fetch(
-          "https://lldev.thespacedevs.com/2.3.0/launches/upcoming/?limit=3"
-        ),
-        fetch(
-          "https://lldev.thespacedevs.com/2.3.0/launches/previous/?limit=3"
-        ),
-      ]);
+      try {
+        const [upcomingResponse, previousResponse] = await Promise.all([
+          fetch(
+            "https://lldev.thespacedevs.com/2.3.0/launches/upcoming/?limit=3"
+          ),
+          fetch(
+            "https://lldev.thespacedevs.com/2.3.0/launches/previous/?limit=3"
+          ),
+        ]);
 
-      const previousData = await previousResponse.json();
-      const upcomingData = await upcomingResponse.json();
+        if (!upcomingResponse.ok || !previousResponse.ok) {
+          throw new Error("Failed to fetch launch data");
+        }
 
-      setPrevious(previousData.results);
-      setUpcoming(upcomingData.results);
-      setLoading(false);
+        const upcomingData = await upcomingResponse.json();
+        const previousData = await previousResponse.json();
+
+        setUpcoming(upcomingData.results);
+        setPrevious(previousData.results);
+      } catch (error) {
+        console.error("Error fetching launches:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchHomepageData();
   }, []);
 
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="container mx-auto p-4 flex flex-col gap-8 ">
+    <div className="container mx-auto p-4 flex flex-col gap-8">
       <h1 className="text-4xl font-bold text-center dark:text-white">
         Welcome to Rocket Launch Tracker!
       </h1>
+
       {upcoming.length > 0 && (
-        <div className="text-center p-10 dark:bg-slate-800 rounded-lg border border-slate-700 max-w-3xl mx-auto">
+        <div className="text-center p-10 bg-gray-50 dark:bg-slate-800 rounded-lg border border-slate-700 max-w-3xl mx-auto">
           <p className="dark:text-white text-2xl">
             <span className="font-bold">Next Launch: </span> {upcoming[0].name}
           </p>
@@ -48,7 +59,8 @@ function HomePage() {
           </div>
         </div>
       )}
-      <section className="dark:bg-slate-800 p-5 rounded-lg border border-slate-700 max-w-7xl self-center">
+
+      <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700 max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-semibold dark:text-white">
             Upcoming Launches
@@ -57,16 +69,18 @@ function HomePage() {
             <Button>View All</Button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4">
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {upcoming.map((launch) => (
-            <div key={launch.id} className="md:shrink-0 md:w-96 pt-2">
-              <LaunchCard launch={launch} />
+            <div key={launch.id} className="flex">
+              <LaunchCard launch={launch} className="flex-1 h-full" />
             </div>
           ))}
         </div>
       </section>
-      <section className="dark:bg-slate-800 p-5 rounded-lg border border-slate-700 max-w-7xl self-center">
-        <div className="flex justify-between items-center">
+
+      <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-semibold dark:text-white">
             Previous Launches
           </h2>
@@ -75,10 +89,10 @@ function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:flex md:flex-row md:overflow-x-auto md:pb-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {previous.map((launch) => (
-            <div key={launch.id} className="md:shrink-0 md:w-96 pt-2">
-              <LaunchCard launch={launch} />
+            <div key={launch.id} className="flex">
+              <LaunchCard launch={launch} className="flex-1 h-full" />
             </div>
           ))}
         </div>
