@@ -12,6 +12,24 @@ function HomePage() {
 
   useEffect(() => {
     const fetchHomepageData = async () => {
+      const cacheKey = "homepageLaunches";
+      const cacheDuration = 5 * 60 * 1000;
+      const cached = localStorage.getItem(cacheKey);
+
+      if (cached) {
+        const {
+          upcoming: cachedUpcoming,
+          previous: cachedPrevious,
+          timestamp,
+        } = JSON.parse(cached);
+        if (new Date().getTime() - timestamp < cacheDuration) {
+          setUpcoming(cachedUpcoming);
+          setPrevious(cachedPrevious);
+          setLoading(false);
+          return;
+        }
+      }
+
       try {
         const [upcomingResponse, previousResponse] = await Promise.all([
           fetch(
@@ -31,6 +49,15 @@ function HomePage() {
 
         setUpcoming(upcomingData.results);
         setPrevious(previousData.results);
+
+        localStorage.setItem(
+          cacheKey,
+          JSON.stringify({
+            upcoming: upcomingData.results,
+            previous: previousData.results,
+            timestamp: new Date().getTime(),
+          })
+        );
       } catch (error) {
         console.error("Error fetching launches:", error);
       } finally {

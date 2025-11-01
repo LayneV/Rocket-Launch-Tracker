@@ -7,11 +7,24 @@ function LaunchList({ listType }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!listType) return;
-
-    setLoading(true);
-
     const fetchLaunches = async () => {
+      const cacheKey = `launches_${listType}`;
+      const cacheDuration = 5 * 60 * 1000;
+
+      const cachedItem = localStorage.getItem(cacheKey);
+
+      if (cachedItem) {
+        const { data, timestamp } = JSON.parse(cachedItem);
+        const isCacheValid = new Date().getTime() - timestamp < cacheDuration;
+
+        if (isCacheValid) {
+          setLaunches(data);
+          setLoading(false);
+          return;
+        }
+      }
+
+      setLoading(true);
       try {
         const response = await fetch(
           `https://lldev.thespacedevs.com/2.3.0/launches/${listType}/`
@@ -21,12 +34,19 @@ function LaunchList({ listType }) {
         }
         const data = await response.json();
         setLaunches(data.results);
+
+        const newCacheItem = {
+          data: data.results,
+          timestamp: new Date().getTime(),
+        };
+        localStorage.setItem(cacheKey, JSON.stringify(newCacheItem));
       } catch (error) {
         console.error("Failed to fetch launches", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchLaunches();
   }, [listType]);
 

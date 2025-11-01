@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Badge } from "flowbite-react";
 import { ArrowLeftIcon } from "flowbite-react";
@@ -9,6 +9,7 @@ const LaunchDetail = () => {
   const { id } = useParams();
   const [launch, setLaunch] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const getStatusColor = (statusName) => {
     const status = statusName.toLowerCase();
     if (status.includes("success") || status.includes("go")) {
@@ -30,14 +31,14 @@ const LaunchDetail = () => {
         );
 
         if (!response.ok) {
-          throw new Error(`Failed to fetch launch: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
         setLaunch(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching launch:", error);
-      } finally {
         setLoading(false);
       }
     };
@@ -50,7 +51,7 @@ const LaunchDetail = () => {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">
       <div className="mb-3">
-        <Button className="max-w-xs" as={Link} to="/" size="md">
+        <Button className="max-w-xs" size="md" onClick={() => navigate(-1)}>
           <ArrowLeftIcon />
           Back to Launches
         </Button>
