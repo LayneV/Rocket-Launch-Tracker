@@ -2,13 +2,16 @@ import {
   Navbar,
   NavbarBrand,
   NavbarCollapse,
-  NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Header() {
-  const location = useLocation();
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "Upcoming Launches", path: "/upcoming" },
+    { name: "Previous Launches", path: "/previous" },
+  ];
 
   return (
     <Navbar>
@@ -17,25 +20,24 @@ function Header() {
           Rocket Launch Tracker 🚀
         </span>
       </NavbarBrand>
+
       <NavbarToggle />
       <NavbarCollapse>
-        {[
-          { name: "Home", path: "/" },
-          { name: "Upcoming Launches", path: "/upcoming" },
-          { name: "Previous Launches", path: "/previous" },
-        ].map((link) => (
-          <NavbarLink
+        {links.map((link) => (
+          <NavLink
             key={link.path}
-            as={NavLink}
             to={link.path}
-            className={
-              location.pathname === link.path
-                ? "text-blue-400 font-bold px-3 py-2 rounded [text-shadow:_0_0_8px_rgb(59_130_246)]"
-                : ""
+            end={link.path === "/"}
+            className={({ isActive }) =>
+              `px-3 py-2 rounded ${
+                isActive
+                  ? "text-blue-400 font-bold [text-shadow:_0_0_8px_rgb(59_130_246)]"
+                  : "text-gray-700 dark:text-gray-300 hover:text-blue-400"
+              }`
             }
           >
             {link.name}
-          </NavbarLink>
+          </NavLink>
         ))}
       </NavbarCollapse>
     </Navbar>

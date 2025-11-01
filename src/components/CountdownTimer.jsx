@@ -1,31 +1,40 @@
 import { useState, useEffect } from "react";
 
 const CountdownTimer = ({ targetDate }) => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const calculateTimeLeft = () => {
+    if (!targetDate) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+    const totalSeconds =
+      (new Date(targetDate).getTime() - new Date().getTime()) / 1000;
+
+    if (totalSeconds <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+
+    return { days, hours, minutes, seconds };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const formatTime = (value) => String(value).padStart(2, "0");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const totalSeconds =
-        (new Date(targetDate).getTime() - new Date().getTime()) / 1000;
+      const newTimeLeft = calculateTimeLeft();
+      setTimeLeft(newTimeLeft);
 
-      if (totalSeconds <= 0) {
+      if (
+        newTimeLeft.days === 0 &&
+        newTimeLeft.hours === 0 &&
+        newTimeLeft.minutes === 0 &&
+        newTimeLeft.seconds === 0
+      ) {
         clearInterval(intervalId);
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
       }
-
-      const days = Math.floor(totalSeconds / 86400);
-      const hours = Math.floor((totalSeconds % 86400) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = Math.floor(totalSeconds % 60);
-
-      setTimeLeft({ days, hours, minutes, seconds });
     }, 1000);
 
     return () => clearInterval(intervalId);

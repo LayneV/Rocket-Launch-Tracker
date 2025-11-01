@@ -13,7 +13,7 @@ function HomePage() {
   useEffect(() => {
     const fetchHomepageData = async () => {
       const cacheKey = "homepageLaunches";
-      const cacheDuration = 5 * 60 * 1000;
+      const cacheDuration = 6 * 60 * 60 * 1000; 
       const cached = localStorage.getItem(cacheKey);
 
       if (cached) {
@@ -40,6 +40,18 @@ function HomePage() {
           ),
         ]);
 
+        if (upcomingResponse.status === 429 || previousResponse.status === 429) {
+          console.warn("Rate limited - using cached data");
+          if (cached) {
+            const { upcoming: cachedUpcoming, previous: cachedPrevious } = JSON.parse(cached);
+            setUpcoming(cachedUpcoming);
+            setPrevious(cachedPrevious);
+            setLoading(false);
+            return;
+          }
+          throw new Error("Rate limited and no cached data available");
+        }
+
         if (!upcomingResponse.ok || !previousResponse.ok) {
           throw new Error("Failed to fetch launch data");
         }
@@ -60,6 +72,12 @@ function HomePage() {
         );
       } catch (error) {
         console.error("Error fetching launches:", error);
+
+        if (cached) {
+          const { upcoming: cachedUpcoming, previous: cachedPrevious } = JSON.parse(cached);
+          setUpcoming(cachedUpcoming);
+          setPrevious(cachedPrevious);
+        }
       } finally {
         setLoading(false);
       }

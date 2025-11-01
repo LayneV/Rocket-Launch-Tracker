@@ -10,6 +10,7 @@ const LaunchDetail = () => {
   const [launch, setLaunch] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
   const getStatusColor = (statusName) => {
     const status = statusName.toLowerCase();
     if (status.includes("success") || status.includes("go")) {
@@ -23,12 +24,37 @@ const LaunchDetail = () => {
     }
     return "gray";
   };
+
   useEffect(() => {
     const fetchSpecificLaunch = async () => {
+      const cacheKey = `launch_${id}`;
+      const cacheDuration = 24 * 60 * 60 * 1000;
+      const cached = localStorage.getItem(cacheKey);
+
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        if (new Date().getTime() - timestamp < cacheDuration) {
+          setLaunch(data);
+          setLoading(false);
+          return;
+        }
+      }
+
       try {
         const response = await fetch(
           `https://ll.thespacedevs.com/2.3.0/launches/${id}/`
         );
+
+        if (response.status === 429) {
+          console.warn("Rate limited - using cached data if available");
+          if (cached) {
+            const { data } = JSON.parse(cached);
+            setLaunch(data);
+            setLoading(false);
+            return;
+          }
+          throw new Error("Rate limited and no cached data available");
+        }
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -36,9 +62,23 @@ const LaunchDetail = () => {
 
         const data = await response.json();
         setLaunch(data);
+
+        localStorage.setItem(
+          cacheKey,
+          JSON.stringify({
+            data: data,
+            timestamp: new Date().getTime(),
+          })
+        );
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching launch:", error);
+        
+        if (cached) {
+          const { data } = JSON.parse(cached);
+          setLaunch(data);
+        }
         setLoading(false);
       }
     };
@@ -47,6 +87,7 @@ const LaunchDetail = () => {
   }, [id]);
 
   if (loading) return <LoadingSpinner />;
+  if (!launch) return <div className="text-center dark:text-white">Launch not found</div>;
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">
@@ -61,7 +102,7 @@ const LaunchDetail = () => {
         <div>
           <img
             className="w-full h-auto rounded-lg shadow-xl"
-            src={launch.image.image_url || rocketIcon}
+            src={launch?.image?.image_url || rocketIcon}
             alt={`Rocket`}
           />
         </div>
@@ -69,8 +110,8 @@ const LaunchDetail = () => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <span className="font-semibold">Status:</span>
-            <Badge size="sm" color={getStatusColor(launch.status.name)}>
-              {launch.status.name || "Unknown"}
+            <Badge size="sm" color={getStatusColor(launch?.status?.name || "Unknown")}>
+              {launch?.status?.name || "Unknown"}
             </Badge>
           </div>
 
@@ -83,26 +124,26 @@ const LaunchDetail = () => {
               <span className="font-bold text-gray-600 dark:text-gray-400">
                 Launch Date:{" "}
               </span>
-              {new Date(launch.net).toLocaleString() || "Unknown"}
+              {launch?.net ? new Date(launch.net).toLocaleString() : "Unknown"}
             </p>
             <p>
               <span className="font-bold text-gray-600 dark:text-gray-400">
                 Location:{" "}
               </span>
-              {launch.pad.location.name || "Unknown"}
+              {launch?.pad?.location?.name || "Unknown"}
             </p>
-            {launch.mission?.agencies?.length > 0 && (
+            {launch?.mission?.agencies?.length > 0 && (
               <p>
                 <span className="font-bold text-gray-600 dark:text-gray-400">
                   Company:{" "}
                 </span>
-                {launch.mission?.agencies[0].name || "Unknown"}
+                {launch.mission.agencies[0].name || "Unknown"}
               </p>
             )}
           </div>
 
           <p className="mt-2 text-gray-600 dark:text-gray-400 leading-relaxed">
-            {launch.mission?.description ||
+            {launch?.mission?.description ||
               "No detailed mission description available."}
           </p>
 
@@ -110,7 +151,7 @@ const LaunchDetail = () => {
             <h3 className="text-3xl font-bold mb-4">Vehicle Details</h3>
 
             <p className="mb-6 text-gray-600 dark:text-gray-400">
-              {launch.rocket?.configuration?.description ||
+              {launch?.rocket?.configuration?.description ||
                 "No vehicle description available."}
             </p>
 
@@ -120,14 +161,14 @@ const LaunchDetail = () => {
                   Full Name:
                 </span>
               </p>
-              <p>{launch.rocket?.configuration?.full_name || "Unknown"}</p>
+              <p>{launch?.rocket?.configuration?.full_name || "Unknown"}</p>
 
               <p>
                 <span className="font-bold text-gray-600 dark:text-gray-400">
                   Family:
                 </span>
               </p>
-              <p>{launch.rocket?.configuration?.family || "Unknown"}</p>
+              <p>{launch?.rocket?.configuration?.family || "Unknown"}</p>
 
               <p>
                 <span className="font-bold">
@@ -137,12 +178,11 @@ const LaunchDetail = () => {
               </p>
               <p>
                 <span className="text-green-500">
-                  {launch.rocket?.configuration?.successful_launches ||
-                    "Unknown"}
+                  {launch?.rocket?.configuration?.successful_launches || "Unknown"}
                 </span>{" "}
                 /{" "}
                 <span className="text-red-500">
-                  {launch.rocket?.configuration?.failed_launches || "Unknown"}
+                  {launch?.rocket?.configuration?.failed_launches || "Unknown"}
                 </span>
               </p>
 
@@ -152,7 +192,7 @@ const LaunchDetail = () => {
                 </span>
               </p>
               <p>
-                {launch.rocket?.configuration?.launch_cost
+                {launch?.rocket?.configuration?.launch_cost
                   ? `$${parseInt(launch.rocket.configuration.launch_cost).toLocaleString()}`
                   : "N/A"}
               </p>
