@@ -42,7 +42,7 @@ const LaunchDetail = () => {
 
       try {
         const response = await fetch(
-          `https://ll.thespacedevs.com/2.3.0/launches/${id}/`
+          `https://lldev.thespacedevs.com/2.3.0/launches/${id}/`
         );
 
         if (response.status === 429) {

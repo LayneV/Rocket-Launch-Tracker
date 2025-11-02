@@ -47,7 +47,7 @@ const CountdownTimer = ({ targetDate }) => {
     timeLeft.seconds === 0
   ) {
     return (
-      <p className="text-3xl font-bold text-green-400 [text-shadow:0_0_0_10px_rgb(34_197_94)] animate-pulse">
+      <p className="text-3xl font-bold text-green-400 [text-shadow:_0_0_10px_rgb(34_197_94)] animate-pulse">
         Launch window open!
       </p>
     );

@@ -91,12 +91,12 @@ function HomePage() {
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-8">
-      <h1 className="text-4xl font-bold text-center dark:text-white [text-shadow:0_0_0_8px_rgb(59_130_246)]">
+      <h1 className="text-4xl font-bold text-center dark:text-white [text-shadow:_0_0_8px_rgb(59_130_246)]">
         Welcome to Rocket Launch Tracker!
       </h1>
 
       {upcoming.length > 0 && (
-        <div className="text-center p-10 bg-linear-to-br from-slate-900 to-slate-800 rounded-lg border border-slate-700 max-w-3xl mx-auto shadow-lg shadow-blue-500/10">
+        <div className="text-center p-4 bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg border border-slate-700 w-fit mx-auto shadow-lg shadow-blue-500/10">
           <p className="dark:text-white text-2xl">
             <span className="font-bold">Next Launch: </span> {upcoming[0].name}
           </p>
@@ -108,7 +108,7 @@ function HomePage() {
 
       <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-semibold dark:text-white [text-shadow:0_0_0_8px_rgb(59_130_246)]">
+          <h2 className="text-3xl font-semibold dark:text-white [text-shadow:_0_0_8px_rgb(59_130_246)]">
             Upcoming Launches
           </h2>
           <Link to="/upcoming">
@@ -126,7 +126,7 @@ function HomePage() {
 
       <section className="bg-gray-50 dark:bg-slate-800 p-5 rounded-lg border dark:border-slate-700">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-semibold dark:text-white [text-shadow:0_0_0_8px_rgb(59_130_246)]">
+          <h2 className="text-3xl font-semibold dark:text-white [text-shadow:_0_0_8px_rgb(59_130_246)]">
             Previous Launches
           </h2>
           <Link to="/previous">
