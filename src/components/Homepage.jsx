@@ -13,7 +13,7 @@ function HomePage() {
   useEffect(() => {
     const fetchHomepageData = async () => {
       const cacheKey = "homepageLaunches";
-      const cacheDuration = 6 * 60 * 60 * 1000; 
+      const cacheDuration = 6 * 60 * 60 * 1000;
       const cached = localStorage.getItem(cacheKey);
 
       if (cached) {
@@ -32,18 +32,18 @@ function HomePage() {
 
       try {
         const [upcomingResponse, previousResponse] = await Promise.all([
-          fetch(
-            "https://ll.thespacedevs.com/2.3.0/launches/upcoming/?limit=3"
-          ),
-          fetch(
-            "https://ll.thespacedevs.com/2.3.0/launches/previous/?limit=3"
-          ),
+          fetch("https://ll.thespacedevs.com/2.3.0/launches/upcoming/?limit=3"),
+          fetch("https://ll.thespacedevs.com/2.3.0/launches/previous/?limit=3"),
         ]);
 
-        if (upcomingResponse.status === 429 || previousResponse.status === 429) {
+        if (
+          upcomingResponse.status === 429 ||
+          previousResponse.status === 429
+        ) {
           console.warn("Rate limited - using cached data");
           if (cached) {
-            const { upcoming: cachedUpcoming, previous: cachedPrevious } = JSON.parse(cached);
+            const { upcoming: cachedUpcoming, previous: cachedPrevious } =
+              JSON.parse(cached);
             setUpcoming(cachedUpcoming);
             setPrevious(cachedPrevious);
             setLoading(false);
@@ -74,7 +74,8 @@ function HomePage() {
         console.error("Error fetching launches:", error);
 
         if (cached) {
-          const { upcoming: cachedUpcoming, previous: cachedPrevious } = JSON.parse(cached);
+          const { upcoming: cachedUpcoming, previous: cachedPrevious } =
+            JSON.parse(cached);
           setUpcoming(cachedUpcoming);
           setPrevious(cachedPrevious);
         }
@@ -95,7 +96,7 @@ function HomePage() {
       </h1>
 
       {upcoming.length > 0 && (
-        <div className="text-center p-10 bg-gray-50 dark:bg-slate-800 rounded-lg border border-slate-700 max-w-3xl mx-auto">
+        <div className="text-center p-10 bg-linear-to-br from-slate-900 to-slate-800 rounded-lg border border-slate-700 max-w-3xl mx-auto shadow-lg shadow-blue-500/10">
           <p className="dark:text-white text-2xl">
             <span className="font-bold">Next Launch: </span> {upcoming[0].name}
           </p>

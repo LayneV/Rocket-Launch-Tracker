@@ -16,7 +16,7 @@ const LaunchDetail = () => {
     if (status.includes("success") || status.includes("go")) {
       return "success";
     }
-    if (status.includes("failure") || status.includes("partial failure")) {
+    if (status.includes("failure")) {
       return "failure";
     }
     if (status.includes("in flight") || status.includes("tbc")) {
@@ -74,7 +74,7 @@ const LaunchDetail = () => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching launch:", error);
-        
+
         if (cached) {
           const { data } = JSON.parse(cached);
           setLaunch(data);
@@ -87,7 +87,8 @@ const LaunchDetail = () => {
   }, [id]);
 
   if (loading) return <LoadingSpinner />;
-  if (!launch) return <div className="text-center dark:text-white">Launch not found</div>;
+  if (!launch)
+    return <div className="text-center dark:text-white">Launch not found</div>;
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">
@@ -110,7 +111,10 @@ const LaunchDetail = () => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <span className="font-semibold">Status:</span>
-            <Badge size="sm" color={getStatusColor(launch?.status?.name || "Unknown")}>
+            <Badge
+              size="sm"
+              color={getStatusColor(launch?.status?.name || "Unknown")}
+            >
               {launch?.status?.name || "Unknown"}
             </Badge>
           </div>
@@ -178,7 +182,8 @@ const LaunchDetail = () => {
               </p>
               <p>
                 <span className="text-green-500">
-                  {launch?.rocket?.configuration?.successful_launches || "Unknown"}
+                  {launch?.rocket?.configuration?.successful_launches ||
+                    "Unknown"}
                 </span>{" "}
                 /{" "}
                 <span className="text-red-500">
