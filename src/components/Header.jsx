@@ -18,7 +18,7 @@ function Header() {
   return (
     <Navbar>
       <NavbarBrand>
-        <span className="self-center sm:text-3xl md:text-4xl whitespace-nowrap text-3xl font-semibold [text-shadow:_0_1px_2px_rgba(0,0,0,0.05)] dark:[text-shadow:_0_0_8px_rgb(59_130_246)]] dark:text-white drop-shadow-lg ">
+        <span className="self-center sm:text-3xl md:text-4xl whitespace-nowrap text-3xl font-semibold [text-shadow:_0_1px_2px_rgba(0,0,0,0.05)] dark:[text-shadow:_0_0_8px_rgb(59_130_246)] dark:text-white drop-shadow-lg ">
           Rocket Launch Tracker 🚀
         </span>
       </NavbarBrand>
