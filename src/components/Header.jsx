@@ -6,6 +6,7 @@ import {
 } from "flowbite-react";
 import { NavLink } from "react-router-dom";
 import { DarkThemeToggle } from "flowbite-react";
+import { useThemeMode } from "flowbite-react";
 
 function Header() {
   const links = [
@@ -17,7 +18,7 @@ function Header() {
   return (
     <Navbar>
       <NavbarBrand>
-        <span className="self-center sm:text-3xl md:text-4xl whitespace-nowrap text-3xl font-semibold [text-shadow:_0_0_20px_rgb(59_130_246)] dark:text-white drop-shadow-lg ">
+        <span className="self-center sm:text-3xl md:text-4xl whitespace-nowrap text-3xl font-semibold [text-shadow:_0_1px_2px_rgba(0,0,0,0.05)] dark:[text-shadow:_0_0_8px_rgb(59_130_246)]] dark:text-white drop-shadow-lg ">
           Rocket Launch Tracker 🚀
         </span>
       </NavbarBrand>
@@ -39,7 +40,8 @@ function Header() {
           >
             {link.name}
           </NavLink>
-        ))} <DarkThemeToggle/>
+        ))}{" "}
+        <DarkThemeToggle />
       </NavbarCollapse>
     </Navbar>
   );

@@ -13,7 +13,7 @@ const LaunchCard = ({ launch }) => {
           src={launch?.image?.image_url || rocketIcon}
           onError={(e) => (e.currentTarget.src = rocketIcon)}
           alt="Rocket"
-          className="w-full h-64 object-cover rounded-xl"
+          className="w-full h-64 object-cover rounded-xl drop-shadow-2xl"
         />
         <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           {launch?.name || "Unknown Launch"}

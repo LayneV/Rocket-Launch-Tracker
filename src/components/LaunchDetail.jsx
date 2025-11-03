@@ -88,7 +88,11 @@ const LaunchDetail = () => {
 
   if (loading) return <LoadingSpinner />;
   if (!launch)
-    return <div className="text-center dark:text-white">Launch not found</div>;
+    return (
+      <div className="text-center dark:text-white text-3xl">
+        Launch not found
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 dark:text-white">
@@ -102,7 +106,7 @@ const LaunchDetail = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         <div>
           <img
-            className="w-full h-auto rounded-lg shadow-xl"
+            className="w-full h-auto rounded-lg shadow-2xl drop-shadow-2xl "
             src={launch?.image?.image_url || rocketIcon}
             alt={`Rocket`}
           />
@@ -119,7 +123,7 @@ const LaunchDetail = () => {
             </Badge>
           </div>
 
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight ">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight [text-shadow:_0_1px_2px_rgba(0,0,0,0.05)] dark:[text-shadow:_0_0_8px_rgb(59_130_246)]">
             {launch?.name || "Unknown"}
           </h1>
 

@@ -1,7 +1,7 @@
 const LoadingSpinner = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen w-full">
-      <p className="dark:text-white text-2xl font-semibold mb-4">
+      <p className="dark:text-white text-4xl font-semibold mb-4 [text-shadow:_0_1px_2px_rgba(0,0,0,0.05)] dark:[text-shadow:_0_0_8px_rgb(59_130_246)]">
         Igniting Engines...
       </p>
       <img
