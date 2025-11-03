@@ -5,6 +5,7 @@ import {
   NavbarToggle,
 } from "flowbite-react";
 import { NavLink } from "react-router-dom";
+import { DarkThemeToggle } from "flowbite-react";
 
 function Header() {
   const links = [
@@ -38,7 +39,7 @@ function Header() {
           >
             {link.name}
           </NavLink>
-        ))}
+        ))} <DarkThemeToggle/>
       </NavbarCollapse>
     </Navbar>
   );
