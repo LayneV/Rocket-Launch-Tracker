@@ -96,7 +96,7 @@ function HomePage() {
       </h1>
 
       {upcoming.length > 0 && (
-        <div className="text-center p-4 bg-gradient-to-br from-slate-900 to-slate-800 rounded-lg border border-slate-700 w-fit mx-auto shadow-lg shadow-blue-500/10">
+        <div className="text-center p-4 bg-gradient-to-br dark: text-white from-slate-900 to-slate-800 rounded-lg border border-slate-700 w-fit mx-auto shadow-lg shadow-blue-500/10">
           <p className="dark:text-white text-2xl">
             <span className="font-bold">Next Launch: </span> {upcoming[0].name}
           </p>
