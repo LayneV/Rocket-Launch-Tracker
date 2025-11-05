@@ -56,21 +56,27 @@ const CountdownTimer = ({ targetDate }) => {
   return (
     <div className="flex gap-4 text-center">
       <div>
-        <span className="font-bold text-4xl">{formatTime(timeLeft.days)}</span>
+        <span className="font-bold text-4xl text-black dark:text-white">
+          {formatTime(timeLeft.days)}
+        </span>
         <span className="block text-sm">Days</span>
       </div>
       <div>
-        <span className="font-bold text-4xl">{formatTime(timeLeft.hours)}</span>
+        <span className="font-bold text-4xl text-black dark:text-white">
+          {formatTime(timeLeft.hours)}
+        </span>
         <span className="block text-sm">Hours</span>
       </div>
       <div>
-        <span className="font-bold text-4xl">
+        <span className="font-bold text-4xl text-black dark:text-white">
           {formatTime(timeLeft.minutes)}
         </span>
-        <span className="block text-sm">Minutes</span>
+        <span className="block text-sm text-black dark:text-white">
+          Minutes
+        </span>
       </div>
       <div>
-        <span className="font-bold text-4xl">
+        <span className="font-bold text-4xl text-black dark:text-white">
           {formatTime(timeLeft.seconds)}
         </span>
         <span className="block text-sm">Seconds</span>
